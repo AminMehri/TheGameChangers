@@ -1,0 +1,13 @@
+{% extends 'blog/list.html' %}
+
+{% block head %}
+    <p class="fw-bolder" style="font-size: 4rem ">The Game Changers</p>
+{% endblock %}
+
+{% block next_page_url %}
+    {% url 'blog:home' page_obj.next_page_number %}
+{% endblock %}
+
+{% block previous_page_url %}
+    {% url 'blog:home' page_obj.previous_page_number %}
+{% endblock %}

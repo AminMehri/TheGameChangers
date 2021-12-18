@@ -1,0 +1,26 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block title-meta %}
+    TheGameChangers|Delete Article
+{% endblock %}
+
+{% block main %}
+    <div class="col-md-8 mx-auto">
+        <div class="card card-danger">
+            <div class="card-header">
+                <div class="card-title mb-0 float-left"><h3> Delete Article </h3></div>
+            </div>
+            <div class="card-body">
+                <form method="post">{% csrf_token %}
+                    <p>??? "Are you sure you want to delete "{{ object }}</p>
+                    <input type="submit" value="Delete" class="btn btn-outline-danger">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

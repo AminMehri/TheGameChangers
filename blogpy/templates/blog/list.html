@@ -1,0 +1,79 @@
+{% extends 'blog/base.html' %}
+{% load ratings %}
+{% load static %}
+{% load base_tags %}
+{% load humanize %}
+
+{% block main %}
+<header class="masthead" style="background-image: url({% static '/blog/home-bg.jpg' %})">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    {% block head %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-md px-4 px-lg-5">
+            <div class="gx-4 gx-lg-5 justify-content-center">
+                <div class="row">
+                    <!-- Post preview-->
+
+
+                        <aside class="col-12 col-lg-3">
+                            {% popular_articles %}
+                            {% hot_articles %}
+                        </aside>
+                    <div class="col-12 col-lg-9">
+
+                    {% for article in object_list %}
+
+                        <div class="post-preview">
+                            <a href="{% url 'blog:detail' article.slug %}">
+                                <h2 class="post-title">
+                                    {{ article.title }}
+                                    {% if article.is_special %}
+                                        <span class="text-danger text-opacity-50" style="font-size: 20px"> Special </span>
+                                    {% endif %}
+                                </h2>
+                                <h3 class="post-subtitle">{{ article.description|striptags|truncatewords:20 }}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a class="text-info" href="{% url 'blog:author' article.author %}">{{ article.author.get_full_name }}</a>
+                                on {{ article.publish|naturaltime }}______ Views: <span class="fw-bold">{{ article.hits.count }}</span>
+                            </p>
+
+                        </div>
+                        {% for cat in article.category_published.all %}
+                            <div>
+                                <a href="{% url 'blog:category' cat.slug %}" style="color: red"> #{{ cat.title }} </a>
+                            </div>
+                        {% endfor %}
+
+
+                        <!-- Divider-->
+                        <hr class="my-4" />
+
+                    {% empty %}
+                        <p>Unfortunately, there is no article to display</p>
+                    {% endfor %}
+                    <!-- Pager-->
+                        <div class="d-flex justify-content-between mb-4">
+                            {% if page_obj.has_next %}
+                            <a class="btn btn-primary text-uppercase" href="{% block next_page_url %} {% endblock %}">Older Posts →</a>
+                            {% endif %}
+                            {% if page_obj.has_previous %}
+                            <a class="btn btn-primary text-uppercase" href="{% block previous_page_url %} {% endblock %}">Newer Posts →</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

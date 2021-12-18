@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+{% load comment_tags %}
+{% load ratings %}
+{% load humanize %}
+
+{% load static %}
+
+{% block main %}
+
+<header class="masthead" style="background-image: url({{ article.thumbnail.url }})">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>
+                        {{ article.title }}
+                        {% if article.is_special %}
+                            <span class="text-danger text-opacity-75" style="font-size: 25px"> Special </span>
+                        {% endif %}
+                    </h1>
+                    <time>{{ article.publish|naturaltime }}</time>
+                    <div>Views: {{ article.hits.count }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        {% if article.is_special %}
+                            {% if user.is_authenticated and user.is_special_user or user == article.author or user.is_superuser %}
+                                <p>{{ article.description|safe }}</p>
+                            {% else %}
+                                {{ article.description|safe|truncatewords:60 }}
+                                <h3 class="alert alert-warning"> if you want see this Article you should be a special user</h3>
+                            {% endif %}
+                        {% else %}
+                            <p>{{ article.description|safe }}</p>
+                        {% endif %}
+
+                        <div class="card w-75 mx-auto my-5">
+                          <div class="card-body">
+                              <div class="card-text text-center">{% ratings article %}</div>
+                          </div>
+                        </div>
+
+
+
+                        {% render_comments article request %}
+                        {% include_bootstrap %}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+{% endblock %}

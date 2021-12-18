@@ -1,0 +1,86 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block title-meta %}
+    TheGameChangers|Add Article
+{% endblock %}
+
+{% block main %}
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title mb-0 float-left"><h3> Add Article </h3></div>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.title|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.slug|as_crispy_field }}
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            {{ form.description|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.category|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.thumbnail|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.publish|as_crispy_field }}
+                        </div>
+                        {% if user.is_superuser %}
+                            <div class="col-md-6">
+                                {{ form.author|as_crispy_field }}
+                                {{ form.is_special|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form.status|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-12">
+                                {{ form.super_user_description|as_crispy_field }}
+                            </div>
+                        {% else %}
+                            <div id="div_id_status" class="form-group col-md-6">
+                               <label for="id_status" class=" requiredField">
+                               Status<span class="asteriskField">*</span>
+                               </label>
+                               <div class="">
+                                  <select name="status" class="select form-control" required="" id="id_status">
+                                     <option value="">---------</option>
+                                     <option value="d">Draft</option>
+                                     <option value="i">Send to Admin</option>
+                                  </select>
+                               </div>
+                            </div>
+                        {% endif %}
+
+                        {% if user == article.author %}
+                            <div class="col-md-12">
+                                <p>Super User Description : {{ article.super_user_description|striptags }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button class="btn btn-primary"> Send Article </button>
+                    {% if user.is_superuser and request.resolver_match.kwargs.pk %}
+                        <a href="{% url 'account:article-delete' request.resolver_match.kwargs.pk %}" class="btn btn-danger"> Delete </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

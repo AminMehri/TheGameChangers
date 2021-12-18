@@ -1,0 +1,14 @@
+{% extends 'blog/list.html' %}
+
+{% block head %}
+    <h1>{{ category.title }}</h1>
+    <p class="text-danger"> Category </p>
+{% endblock %}
+
+{% block next_page_url %}
+    {% url 'blog:category' category.slug page_obj.next_page_number %}
+{% endblock %}
+
+{% block previous_page_url %}
+    {% url 'blog:category' category.slug page_obj.previous_page_number %}
+{% endblock %}

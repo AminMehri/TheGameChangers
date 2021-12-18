@@ -1,0 +1,55 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block title-meta %}
+    TheGameChangers|Profile
+{% endblock %}
+
+{% block main %}
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title mb-0 float-left"><h3> User Profile </h3></div>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.username|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-12">
+                            <span>if you want change your password please</span>
+                            <a href="{% url 'password_change' %}">click me</a>
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.first_name|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.last_name|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.special_user|as_crispy_field }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form.is_author|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button class="btn btn-primary"> Edit information </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

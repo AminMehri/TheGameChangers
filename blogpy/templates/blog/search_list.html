@@ -1,0 +1,14 @@
+{% extends 'blog/list.html' %}
+
+{% block head %}
+    <h5 class="text-muted">Search about:</h5>
+    <h1>{{ search }}</h1>
+{% endblock %}
+
+{% block next_page_url %}
+    {% url 'blog:search' page_obj.next_page_number %}?q={{ search }}
+{% endblock %}
+
+{% block previous_page_url %}
+    {% url 'blog:search' page_obj.previous_page_number %}?p={{ search }}
+{% endblock %}

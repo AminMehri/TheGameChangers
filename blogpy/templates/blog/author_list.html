@@ -1,0 +1,14 @@
+{% extends 'blog/list.html' %}
+
+{% block head %}
+    <h1>{{ author.get_full_name }}</h1>
+    <p class="text-danger"> Author </p>
+{% endblock %}
+
+{% block next_page_url %}
+    {% url 'blog:author' author.username page_obj.next_page_number %}
+{% endblock %}
+
+{% block previous_page_url %}
+    {% url 'blog:author' author.username page_obj.previous_page_number %}
+{% endblock %}

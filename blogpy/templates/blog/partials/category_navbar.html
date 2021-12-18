@@ -1,0 +1,11 @@
+<div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+        {% for cat in category %}
+{#            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-warning" href="{% url 'blog:category' cat.slug %}">{{ cat.title }}</a></li>#}
+        {% endfor %}
+    </ul>
+    <form class="d-flex" action="{% url 'blog:search' %}">
+        <input type="text" name="q" class="form-control bg-dark text-white" placeholder="Searching">
+        <button class="btn btn-outline-secondary" style="padding: 8px; margin-right: 5px">search</button>
+    </form>
+</div>
