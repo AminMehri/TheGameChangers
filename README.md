@@ -51,4 +51,4 @@ $ python manage.py runserver
 And go to http://localhost:8000/
 
 
-You did it. ## congratulations
+You did it. congratulations
