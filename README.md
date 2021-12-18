@@ -8,6 +8,8 @@ A project for meet celebrities and their lifestyle. This project is User-centric
 
 - Django 2.2.x
 
+- Javascript
+
 - HTML 5
 
 - CSS 3
