@@ -3,6 +3,7 @@
 A project for meet celebrities and their lifestyle. This project is User-centric site. All user can be a writer here.
 
 Technologies used in this project:
+
 Python 3.x
 Django 2.2.x
 HTML 5
